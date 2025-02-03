@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Config files
+*.config
+/PasswordManager.App/App.config
+/PasswordManager.Data/App.config
