@@ -44,36 +44,49 @@ A secure password management application built with C# and Entity Framework, dem
 ## Screenshots
 
 ### Login & Authentication
-![Login Screen](screenshots/login.png)
+
+<img src="screenshots/login.png" style="max-width: 800px; width: 100%; height: auto;" alt="Login Screen">
+
 *Main login interface*
 
-![2FA Setup](screenshots/2fa-setup.png)
+<img src="screenshots/2fa-setup.png" style="max-width: 800px; width: 100%; height: auto;" alt="2FA Setup">
+
 *Two-factor authentication setup*
 
 ### Password Management
-![Dashboard](screenshots/dashboard.png)
+
+<img src="screenshots/dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Dashboard">
+
 *User dashboard showing password statistics*
 
-![Password List](screenshots/password-list.png)
+<img src="screenshots/password-list.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password List">
+
 *Password management interface*
 
-![Password Groups](screenshots/password-groups.png)
+<img src="screenshots/password-groups.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password Groups">
+
 *Password grouping functionality*
 
 ### Administrative Interface
-![Admin Dashboard](screenshots/admin-dashboard.png)
+
+<img src="screenshots/admin-dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Admin Dashboard">
+
 *Administrative control panel*
 
-![Security Monitoring](screenshots/security-monitoring.png)
+<img src="screenshots/security-monitoring.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Monitoring">
+
 *Security monitoring dashboard*
 
-![Security Management (1)](screenshots/security-management-1.png)
+<img src="screenshots/security-management-1.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (1)">
+
 *Security monitoring management (1)*
 
-![Security Management (2)](screenshots/security-management-2.png)
+<img src="screenshots/security-management-2.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (2)">
+
 *Security monitoring management (2)*
 
-![Security Management (3)](screenshots/security-management-3.png)
+<img src="screenshots/security-management-3.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (3)">
+
 *Security monitoring management (3)*
 
 ## Technologies Used

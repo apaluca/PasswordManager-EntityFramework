@@ -359,10 +359,6 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-# Fody - auto-generated XML schema
-FodyWeavers.xsd
-
-# Config files
-*.config
+# Config files for PasswordManager
 /PasswordManager.App/App.config
 /PasswordManager.Data/App.config
