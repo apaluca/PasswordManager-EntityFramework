@@ -45,69 +45,69 @@ A secure password management application built with C# and Entity Framework, dem
 
 ### Login & Authentication
 
-<p align="center">
-  <img src="screenshots/login.png" style="max-width: 800px; width: 50%; height: auto;" alt="Login Screen">
-  
-  *Main login interface*
-</p>
+<div align="center">
+    <img src="screenshots/login.png" style="max-width: 800px; width: 100%; height: auto;" alt="Login Screen">
+    
+    *Main login interface*
+</div>
 
-<p align="center">
-  <img src="screenshots/2fa-setup.png" style="max-width: 800px; width: 50%; height: auto;" alt="2FA Setup">
-  
-  *Two-factor authentication setup*
-</p>
+<div align="center">
+    <img src="screenshots/2fa-setup.png" style="max-width: 800px; width: 100%; height: auto;" alt="2FA Setup">
+    
+    *Two-factor authentication setup*
+</div>
 
 ### Password Management
 
-<p align="center">
-  <img src="screenshots/dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Dashboard">
-  
-  *User dashboard showing password statistics*
-</p>
+<div align="center">
+    <img src="screenshots/dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Dashboard">
+    
+    *User dashboard showing password statistics*
+</div>
 
-<p align="center">
-  <img src="screenshots/password-list.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password List">
-  
-  *Password management interface*
-</p>
+<div align="center">
+    <img src="screenshots/password-list.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password List">
+    
+    *Password management interface*
+</div>
 
-<p align="center">
-  <img src="screenshots/password-groups.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password Groups">
-  
-  *Password grouping functionality*
-</p>
+<div align="center">
+    <img src="screenshots/password-groups.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password Groups">
+    
+    *Password grouping functionality*
+</div>
 
 ### Administrative Interface
 
-<p align="center">
-  <img src="screenshots/admin-dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Admin Dashboard">
-  
-  *Administrative control panel*
-</p>
+<div align="center">
+    <img src="screenshots/admin-dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Admin Dashboard">
+    
+    *Administrative control panel*
+</div>
 
-<p align="center">
-  <img src="screenshots/security-monitoring.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Monitoring">
-  
-  *Security monitoring dashboard*
-</p>
+<div align="center">
+    <img src="screenshots/security-monitoring.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Monitoring">
+    
+    *Security monitoring dashboard*
+</div>
 
-<p align="center">
-  <img src="screenshots/security-management-1.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (1)">
-  
-  *Security monitoring management (1)*
-</p>
+<div align="center">
+    <img src="screenshots/security-management-1.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (1)">
+    
+    *Security monitoring management (1)*
+</div>
 
-<p align="center">
-  <img src="screenshots/security-management-2.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (2)">
-  
-  *Security monitoring management (2)*
-</p>
+<div align="center">
+    <img src="screenshots/security-management-2.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (2)">
+    
+    *Security monitoring management (2)*
+</div>
 
-<p align="center">
-  <img src="screenshots/security-management-3.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (3)">
-  
-  *Security monitoring management (3)*
-</p>
+<div align="center">
+    <img src="screenshots/security-management-3.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (3)">
+    
+    *Security monitoring management (3)*
+</div>
 
 ## Technologies Used
 
