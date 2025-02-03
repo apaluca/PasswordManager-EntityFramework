@@ -46,13 +46,13 @@ A secure password management application built with C# and Entity Framework, dem
 ### Login & Authentication
 
 <p align="center">
-  <img src="screenshots/login.png" style="max-width: 800px; width: 100%; height: auto;" alt="Login Screen">
+  <img src="screenshots/login.png" style="max-width: 800px; width: 50%; height: auto;" alt="Login Screen">
   
   *Main login interface*
 </p>
 
 <p align="center">
-  <img src="screenshots/2fa-setup.png" style="max-width: 800px; width: 100%; height: auto;" alt="2FA Setup">
+  <img src="screenshots/2fa-setup.png" style="max-width: 800px; width: 50%; height: auto;" alt="2FA Setup">
   
   *Two-factor authentication setup*
 </p>
