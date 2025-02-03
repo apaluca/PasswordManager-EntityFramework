@@ -45,39 +45,69 @@ A secure password management application built with C# and Entity Framework, dem
 
 ### Login & Authentication
 
-<img src="screenshots/login.png" style="max-width: 800px; width: 50%; height: auto;" alt="Login Screen">
-*Main login interface*
+<p align="center">
+  <img src="screenshots/login.png" style="max-width: 800px; width: 100%; height: auto;" alt="Login Screen">
+  
+  *Main login interface*
+</p>
 
-<img src="screenshots/2fa-setup.png" style="max-width: 800px; width: 50%; height: auto;" alt="2FA Setup">
-*Two-factor authentication setup*
+<p align="center">
+  <img src="screenshots/2fa-setup.png" style="max-width: 800px; width: 100%; height: auto;" alt="2FA Setup">
+  
+  *Two-factor authentication setup*
+</p>
 
 ### Password Management
 
-<img src="screenshots/dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Dashboard">
-*User dashboard showing password statistics*
+<p align="center">
+  <img src="screenshots/dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Dashboard">
+  
+  *User dashboard showing password statistics*
+</p>
 
-<img src="screenshots/password-list.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password List">
-*Password management interface*
+<p align="center">
+  <img src="screenshots/password-list.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password List">
+  
+  *Password management interface*
+</p>
 
-<img src="screenshots/password-groups.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password Groups">
-*Password grouping functionality*
+<p align="center">
+  <img src="screenshots/password-groups.png" style="max-width: 800px; width: 100%; height: auto;" alt="Password Groups">
+  
+  *Password grouping functionality*
+</p>
 
 ### Administrative Interface
 
-<img src="screenshots/admin-dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Admin Dashboard">
-*Administrative control panel*
+<p align="center">
+  <img src="screenshots/admin-dashboard.png" style="max-width: 800px; width: 100%; height: auto;" alt="Admin Dashboard">
+  
+  *Administrative control panel*
+</p>
 
-<img src="screenshots/security-monitoring.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Monitoring">
-*Security monitoring dashboard*
+<p align="center">
+  <img src="screenshots/security-monitoring.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Monitoring">
+  
+  *Security monitoring dashboard*
+</p>
 
-<img src="screenshots/security-management-1.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (1)">
-*Security monitoring management (1)*
+<p align="center">
+  <img src="screenshots/security-management-1.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (1)">
+  
+  *Security monitoring management (1)*
+</p>
 
-<img src="screenshots/security-management-2.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (2)">
-*Security monitoring management (2)*
+<p align="center">
+  <img src="screenshots/security-management-2.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (2)">
+  
+  *Security monitoring management (2)*
+</p>
 
-<img src="screenshots/security-management-3.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (3)">
-*Security monitoring management (3)*
+<p align="center">
+  <img src="screenshots/security-management-3.png" style="max-width: 800px; width: 100%; height: auto;" alt="Security Management (3)">
+  
+  *Security monitoring management (3)*
+</p>
 
 ## Technologies Used
 
