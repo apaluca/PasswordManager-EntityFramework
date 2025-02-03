@@ -1,0 +1,168 @@
+﻿<Window x:Class="PasswordManager.App.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:PasswordManager.App.Views"
+        xmlns:viewmodels="clr-namespace:PasswordManager.App.ViewModels"
+        Title="Password Manager" 
+        Height="800" 
+        Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundBrush}">
+
+    <Grid>
+        <!-- Top Bar -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" 
+                Background="{StaticResource SurfaceBrush}"
+                BorderBrush="{StaticResource BorderBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid Margin="16,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <!-- Logo Space -->
+                    <ColumnDefinition Width="*"/>
+                    <!-- Middle Space -->
+                    <ColumnDefinition Width="Auto"/>
+                    <!-- Actions -->
+                </Grid.ColumnDefinitions>
+
+                <!-- Left - Logo/Title -->
+                <TextBlock Text="Password Manager"
+                         Style="{StaticResource HeadingMedium}"
+                         VerticalAlignment="Center"/>
+
+                <!-- Middle - Welcome Message -->
+                <TextBlock Grid.Column="1"
+                         Text="{Binding WelcomeMessage}"
+                         Style="{StaticResource BodyText}"
+                         VerticalAlignment="Center"
+                         Margin="16,0,0,0"/>
+
+                <!-- Right - Actions -->
+                <StackPanel Grid.Column="2" 
+                          Orientation="Horizontal" 
+                          HorizontalAlignment="Right">
+                    <Button Command="{Binding ToggleTwoFactorCommand}"
+                            Content="{Binding IsTwoFactorEnabled, Converter={StaticResource BoolToTwoFactorButtonConverter}}"
+                            Style="{StaticResource BaseButtonStyle}"
+                            Width="120"
+                            Margin="0,0,8,0"/>
+
+                    <Button Command="{Binding ChangePasswordCommand}"
+                            Content="Change Password"
+                            Style="{StaticResource BaseButtonStyle}"
+                            Width="120"
+                            Margin="0,0,8,0"/>
+
+                    <Button Command="{Binding LogoutCommand}"
+                            Content="Sign out"
+                            Style="{StaticResource BaseButtonStyle}"
+                            Width="100"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="240"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Navigation Sidebar -->
+            <Border Grid.Column="0"
+                    Background="{StaticResource SurfaceBrush}"
+                    BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="0,0,1,0">
+                <StackPanel Margin="16">
+                    <!-- Navigation Button Style -->
+                    <StackPanel.Resources>
+                        <Style x:Key="NavButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Margin" Value="0,4"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                            <Setter Property="Padding" Value="16,0"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="FontSize" Value="14"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource PrimaryLightBrush}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <Button Content="Dashboard"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="Dashboard"
+                            Style="{StaticResource NavButtonStyle}"/>
+
+                    <Button Content="Password Management"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="PasswordManagement"
+                            Style="{StaticResource NavButtonStyle}"/>
+
+                    <Button Content="Password Groups"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="GroupManagement"
+                            Style="{StaticResource NavButtonStyle}"/>
+
+                    <!-- Admin-only buttons -->
+                    <Button Content="User Management"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="UserManagement"
+                            Style="{StaticResource NavButtonStyle}"
+                            Visibility="{Binding IsAdministrator, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <!-- IT Specialist-only buttons -->
+                    <Button Content="Security Monitoring"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="SecurityMonitoring"
+                            Style="{StaticResource NavButtonStyle}"
+                            Visibility="{Binding IsITSpecialist, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <Button Content="Security Management"
+                            Command="{Binding NavigateCommand}"
+                            CommandParameter="SecurityManagement"
+                            Style="{StaticResource NavButtonStyle}"
+                            Visibility="{Binding IsITSpecialist, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Content Area -->
+            <ContentControl Grid.Column="1"
+                           Content="{Binding CurrentViewModel}"
+                           Margin="0">
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
+                        <views:DashboardView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:AdminDashboardViewModel}">
+                        <views:AdminDashboardView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:PasswordManagementViewModel}">
+                        <views:PasswordManagementView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:PasswordGroupManagementViewModel}">
+                        <views:PasswordGroupManagementView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:SecurityMonitoringViewModel}">
+                        <views:SecurityMonitoringView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:SecurityManagementViewModel}">
+                        <views:SecurityManagementView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+            </ContentControl>
+        </Grid>
+    </Grid>
+</Window>

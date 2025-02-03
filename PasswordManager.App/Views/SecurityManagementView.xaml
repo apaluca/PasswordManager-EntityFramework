@@ -1,0 +1,276 @@
+﻿<UserControl x:Class="PasswordManager.App.Views.SecurityManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,24">
+            <TextBlock Text="Security Management"
+                      Style="{StaticResource HeadingLarge}"/>
+            <TextBlock Text="Manage system security settings, alerts, and blocked IPs"
+                      Style="{StaticResource BodyText}"
+                      Foreground="{StaticResource TextSecondaryBrush}"/>
+        </StackPanel>
+
+        <!-- Security Metrics Cards -->
+        <WrapPanel Grid.Row="1" Margin="0,0,0,16">
+            <Border Style="{StaticResource CardStyle}"
+                    Width="280"
+                    Height="120"
+                    Background="#FEE2E2"
+                    Margin="0,0,16,16">
+                <StackPanel>
+                    <TextBlock Text="Active Alerts"
+                             Style="{StaticResource BodyText}"
+                             Foreground="{StaticResource TextSecondaryBrush}"/>
+                    <TextBlock Text="{Binding TotalActiveAlerts}"
+                             FontSize="32"
+                             FontWeight="SemiBold"
+                             Foreground="{StaticResource DangerBrush}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardStyle}"
+                    Width="280"
+                    Height="120"
+                    Background="#DCFCE7"
+                    Margin="0,0,16,16">
+                <StackPanel>
+                    <TextBlock Text="Blocked IPs"
+                             Style="{StaticResource BodyText}"
+                             Foreground="{StaticResource TextSecondaryBrush}"/>
+                    <TextBlock Text="{Binding SecurityMetrics.BlockedIPs}"
+                             FontSize="32"
+                             FontWeight="SemiBold"
+                             Foreground="{StaticResource SuccessBrush}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource CardStyle}"
+                    Width="280"
+                    Height="120"
+                    Background="#FEF3C7"
+                    Margin="0,0,16,16">
+                <StackPanel>
+                    <TextBlock Text="Failed Login Attempts (24h)"
+                             Style="{StaticResource BodyText}"
+                             Foreground="{StaticResource TextSecondaryBrush}"/>
+                    <TextBlock Text="{Binding SecurityMetrics.RecentFailedLogins}"
+                             FontSize="32"
+                             FontWeight="SemiBold"
+                             Foreground="{StaticResource WarningBrush}"/>
+                </StackPanel>
+            </Border>
+        </WrapPanel>
+
+        <!-- Main Content -->
+        <TabControl Grid.Row="2"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource BorderBrush}">
+
+            <!-- Security Alerts Tab -->
+            <TabItem Header="Security Alerts">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" 
+                              Margin="0,0,0,16"
+                              Orientation="Horizontal">
+                        <ComboBox Width="150"
+                                 Margin="0,0,8,0"
+                                 ItemsSource="{Binding AlertSeverityFilters}"
+                                 SelectedItem="{Binding SelectedAlertSeverityFilter}"/>
+                        <Button Command="{Binding RefreshAlertsCommand}"
+                                Style="{StaticResource BaseButtonStyle}"
+                                Content="Refresh" Width="70"/>
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding ActiveAlerts}"
+                             AutoGenerateColumns="False"
+                             IsReadOnly="True"
+                             GridLinesVisibility="Horizontal"
+                             BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date"
+                                              Width="150"
+                                              Binding="{Binding CreatedDate, StringFormat={}{0:g}}"/>
+                            <DataGridTextColumn Header="Type"
+                                              Width="120"
+                                              Binding="{Binding FormattedAlertType}"/>
+                            <DataGridTemplateColumn Header="Severity" Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Severity}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Severity}" Value="Critical">
+                                                            <Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+                                                            <Setter Property="FontWeight" Value="Bold"/>
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Severity}" Value="High">
+                                                            <Setter Property="Foreground" Value="{StaticResource WarningBrush}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Description"
+                                              Width="*"
+                                              Binding="{Binding Description}"/>
+                            <DataGridTemplateColumn Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Resolve"
+                                                Command="{Binding DataContext.ResolveAlertCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource BaseButtonStyle}"
+                                                Width="80"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+
+            <!-- Password Policy Tab -->
+            <TabItem Header="Password Policy">
+                <ScrollViewer>
+                    <StackPanel Margin="16">
+                        <TextBlock Text="Password Requirements"
+                                 Style="{StaticResource HeadingMedium}"
+                                 Margin="0,0,0,16"/>
+
+                        <!-- Policy Settings -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="200"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Minimum Length:" Margin="0,0,16,8"/>
+                            <TextBox Grid.Column="1" 
+                                    Text="{Binding CurrentPolicy.MinLength}"
+                                    Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="1" Text="Require Uppercase:" Margin="0,0,16,8"/>
+                            <CheckBox Grid.Row="1" Grid.Column="1" 
+                                     IsChecked="{Binding CurrentPolicy.RequireUppercase}"
+                                     Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="2" Text="Require Lowercase:" Margin="0,0,16,8"/>
+                            <CheckBox Grid.Row="2" Grid.Column="1" 
+                                     IsChecked="{Binding CurrentPolicy.RequireLowercase}"
+                                     Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="3" Text="Require Numbers:" Margin="0,0,16,8"/>
+                            <CheckBox Grid.Row="3" Grid.Column="1" 
+                                     IsChecked="{Binding CurrentPolicy.RequireNumbers}"
+                                     Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="4" Text="Require Special Characters:" Margin="0,0,16,8"/>
+                            <CheckBox Grid.Row="4" Grid.Column="1" 
+                                     IsChecked="{Binding CurrentPolicy.RequireSpecialChars}"
+                                     Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="5" Text="Max Login Attempts:" Margin="0,0,16,8"/>
+                            <TextBox Grid.Row="5" Grid.Column="1" 
+                                    Text="{Binding CurrentPolicy.MaxLoginAttempts}"
+                                    Margin="0,0,0,8"/>
+
+                            <TextBlock Grid.Row="6" Text="Lockout Duration (minutes):" Margin="0,0,16,8"/>
+                            <TextBox Grid.Row="6" Grid.Column="1" 
+                                    Text="{Binding CurrentPolicy.LockoutDurationMinutes}"
+                                    Margin="0,0,0,8"/>
+                        </Grid>
+
+                        <Button Content="Update Policy"
+                                Command="{Binding UpdatePolicyCommand}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Width="200"
+                                Margin="0,24,0,0"
+                                HorizontalAlignment="Left"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- IP Blocking Tab -->
+            <TabItem Header="IP Blocking">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" 
+                              Margin="0,0,0,16"
+                              Orientation="Horizontal">
+                        <Button Command="{Binding BlockIPCommand}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Margin="0,0,8,0" Width="95">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Block IP"
+                                         Margin="0,0,8,0"/>
+                                <TextBlock Text="+"
+                                         FontWeight="Bold"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Command="{Binding RefreshBlocksCommand}"
+                                Style="{StaticResource BaseButtonStyle}"
+                                Content="Refresh" Width="78"/>
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding BlockedIPs}"
+                             AutoGenerateColumns="False"
+                             IsReadOnly="True"
+                             GridLinesVisibility="Horizontal"
+                             BorderThickness="0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="IP Address"
+                                              Width="150"
+                                              Binding="{Binding IPAddress}"/>
+                            <DataGridTextColumn Header="Reason"
+                                              Width="200"
+                                              Binding="{Binding Reason}"/>
+                            <DataGridTextColumn Header="Blocked By"
+                                              Width="120"
+                                              Binding="{Binding BlockedByUsername}"/>
+                            <DataGridTextColumn Header="Blocked Date"
+                                              Width="150"
+                                              Binding="{Binding BlockedDate, StringFormat={}{0:g}}"/>
+                            <DataGridTextColumn Header="Status"
+                                              Width="150"
+                                              Binding="{Binding Status}"/>
+                            <DataGridTemplateColumn Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Unblock"
+                                                Command="{Binding DataContext.UnblockIPCommand, 
+                                                    RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                CommandParameter="{Binding}"
+                                                Style="{StaticResource BaseButtonStyle}"
+                                                Width="80"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

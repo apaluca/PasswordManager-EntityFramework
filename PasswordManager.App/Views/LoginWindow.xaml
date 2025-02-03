@@ -1,0 +1,163 @@
+﻿<Window x:Class="PasswordManager.App.Views.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mvvm="clr-namespace:PasswordManager.Core.MVVM;assembly=PasswordManager.Core"
+        Title="Password Manager" 
+        Height="760" 
+        Width="480"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource BackgroundBrush}"
+        WindowStyle="SingleBorderWindow">
+
+    <Grid>
+        <Border Style="{StaticResource CardStyle}"
+                Margin="32"
+                VerticalAlignment="Center">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Header -->
+                <StackPanel Grid.Row="0" Margin="0,0,0,32">
+                    <TextBlock Text="Welcome back"
+                             Style="{StaticResource HeadingLarge}"
+                             HorizontalAlignment="Center"/>
+                    <TextBlock Text="Please sign in to your account"
+                             Style="{StaticResource CaptionText}"
+                             HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- Login Form -->
+                <StackPanel Grid.Row="1" Width="300">
+                    <!-- Error Message -->
+                    <Border Background="#FEE2E2" 
+                            BorderBrush="#FECACA"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="16,12"
+                            Margin="0,0,0,24"
+                            Visibility="{Binding ErrorMessage, Converter={StaticResource StringToVisibilityConverter}}"
+                            Height="Auto">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="&#xE783;"
+                                    FontFamily="Segoe MDL2 Assets"
+                                    Foreground="#DC2626"
+                                    Margin="0,0,8,0"
+                                    VerticalAlignment="Top"/>
+
+                            <TextBlock Text="{Binding ErrorMessage}"
+                                    Foreground="#DC2626"
+                                    TextWrapping="Wrap"
+                                    Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Username -->
+                    <StackPanel Visibility="{Binding IsTwoFactorRequired, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                        <TextBlock Text="Username"
+                                 Margin="0,0,0,8"/>
+                        <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"
+                                Margin="0,0,0,16"
+                                Height="36"
+                                VerticalContentAlignment="Center"
+                                Padding="12,0"/>
+
+                        <!-- Password -->
+                        <TextBlock Text="Password"
+                                 Margin="0,0,0,8"/>
+                        <PasswordBox x:Name="PasswordBox"
+                                   Margin="0,0,0,24"
+                                   Height="36"
+                                   VerticalContentAlignment="Center"
+                                   Padding="12,0"
+                                   mvvm:PasswordBoxBehavior.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <!-- Two-Factor Authentication -->
+                    <StackPanel Visibility="{Binding IsTwoFactorRequired, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Border Background="#F0F9FF" 
+                                BorderBrush="#BAE6FD"
+                                BorderThickness="1"
+                                CornerRadius="6"
+                                Padding="16,12"
+                                Margin="0,0,0,24">
+                            <StackPanel>
+                                <TextBlock Text="Two-Factor Authentication"
+                                       Style="{StaticResource HeadingSmall}"
+                                       Margin="0,0,0,4"/>
+                                <TextBlock Text="Please enter the verification code from your authenticator app"
+                                       Style="{StaticResource CaptionText}"
+                                       TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="Verification Code"
+                               Margin="0,0,0,8"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox Text="{Binding TwoFactorCode, UpdateSourceTrigger=PropertyChanged}"
+                                     MaxLength="6"
+                                     FontFamily="Consolas"
+                                     FontSize="20"
+                                     Height="36"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Center"
+                                     Padding="12,0"
+                                     CharacterCasing="Upper"
+                                     Grid.ColumnSpan="2"/>
+                        </Grid>
+
+                        <!-- Back Button -->
+                        <Button Content="Back to Login"
+                                Height="36"
+                                Margin="0,8,0,0"
+                                Command="{Binding BackToLoginCommand}"
+                                Style="{StaticResource BaseButtonStyle}"/>
+                    </StackPanel>
+
+                    <!-- Action Button -->
+                    <Button Height="44"
+                            Margin="0,8,0,0"
+                            IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}"
+                            FontWeight="SemiBold">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsTwoFactorRequired}" Value="True">
+                                        <Setter Property="Content" Value="Verify Code"/>
+                                        <Setter Property="Command" Value="{Binding VerifyTwoFactorCommand}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsTwoFactorRequired}" Value="False">
+                                        <Setter Property="Content" Value="Sign in"/>
+                                        <Setter Property="Command" Value="{Binding LoginCommand}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                                        <Setter Property="Content" Value="Please wait..."/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Loading indicator -->
+                    <TextBlock Text="Signing in..."
+                             HorizontalAlignment="Center"
+                             Margin="0,16,0,0"
+                             Style="{StaticResource CaptionText}"
+                             Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

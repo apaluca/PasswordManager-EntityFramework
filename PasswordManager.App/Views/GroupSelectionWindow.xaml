@@ -1,0 +1,50 @@
+﻿<Window x:Class="PasswordManager.App.Views.GroupSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Select Group"
+        Height="375"
+        Width="425"
+        WindowStartupLocation="CenterOwner"
+        Background="{StaticResource BackgroundBrush}">
+
+    <Border Style="{StaticResource CardStyle}"
+            Margin="24">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <TextBlock Text="Select Group"
+                      Style="{StaticResource HeadingLarge}"
+                      Margin="0,0,0,24"/>
+
+            <!-- Group Selection -->
+            <ComboBox Grid.Row="1"
+                     x:Name="GroupComboBox"
+                     Height="36"
+                     VerticalAlignment="Top"/>
+
+            <!-- Actions -->
+            <StackPanel Grid.Row="2"
+                       Orientation="Horizontal"
+                       HorizontalAlignment="Right"
+                       Margin="0,24,0,0">
+                <Button Content="Cancel"
+                        Style="{StaticResource BaseButtonStyle}"
+                        Width="100"
+                        Margin="0,0,8,0"
+                        Click="CancelButton_Click"
+                        IsCancel="True"/>
+
+                <Button Content="OK"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        Width="100"
+                        Click="OKButton_Click"
+                        IsDefault="True"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

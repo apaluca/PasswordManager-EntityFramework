@@ -1,0 +1,156 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:av="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="av" x:Class="PasswordManager.App.Views.DashboardView"
+             av:DesignWidth="868.387">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,24">
+            <TextBlock Text="Dashboard"
+                      Style="{StaticResource HeadingLarge}"/>
+            <TextBlock Text="Overview of your password security status"
+                      Style="{StaticResource BodyText}"
+                      Foreground="{StaticResource TextSecondaryBrush}"/>
+        </StackPanel>
+
+        <!-- Metrics -->
+        <WrapPanel Grid.Row="1" Margin="0,0,0,24">
+            <ItemsControl ItemsSource="{Binding SecurityMetrics}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
+                                BorderThickness="1"
+                                BorderBrush="{StaticResource BorderBrush}"
+                                CornerRadius="8"
+                                Width="280"
+                                Height="120"
+                                Margin="0,0,16,16"
+                                Padding="20">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{Binding Name}"
+                                         Style="{StaticResource BodyText}"
+                                         Foreground="{StaticResource TextSecondaryBrush}"/>
+                                <TextBlock Text="{Binding Value}"
+                                         Grid.Row="1"
+                                         FontSize="32"
+                                         FontWeight="SemiBold"
+                                         VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </WrapPanel>
+
+        <!-- Content -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Recent Passwords -->
+            <Border Style="{StaticResource CardStyle}"
+                    Grid.Column="0">
+                <DockPanel>
+                    <Grid DockPanel.Dock="Top" Margin="0,0,0,16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Recent Passwords"
+                                 Style="{StaticResource HeadingMedium}"
+                                 Margin="0"/>
+                    </Grid>
+
+                    <DataGrid ItemsSource="{Binding RecentPasswords}"
+                             AutoGenerateColumns="False"
+                             IsReadOnly="True"
+                             GridLinesVisibility="Horizontal"
+                             BorderThickness="1"
+                             BorderBrush="{StaticResource BorderBrush}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Site"
+                                              Binding="{Binding SiteName}"
+                                              Width="*"/>
+                            <DataGridTextColumn Header="Username"
+                                              Binding="{Binding Username}"
+                                              Width="*"/>
+                            <DataGridTextColumn Header="Modified"
+                                              Width="150"
+                                              Binding="{Binding ModifiedDate, StringFormat=\{0:g\}}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+
+            <!-- Expiring Passwords -->
+            <Border Style="{StaticResource CardStyle}"
+                    Grid.Column="2">
+                <DockPanel>
+                    <TextBlock Text="Passwords Expiring Soon"
+                             Style="{StaticResource HeadingMedium}"
+                             DockPanel.Dock="Top"
+                             Margin="0,0,0,16"/>
+
+                    <DataGrid ItemsSource="{Binding ExpiringPasswords}"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          GridLinesVisibility="Horizontal"
+          BorderThickness="1"
+          BorderBrush="{StaticResource BorderBrush}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Site"
+                            Binding="{Binding SiteName}"
+                            Width="*"/>
+                            <DataGridTextColumn Header="Username"
+                            Binding="{Binding Username}"
+                            Width="*"/>
+                            <DataGridTemplateColumn Header="Expires"
+                                Width="120">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ExpirationDate, StringFormat=\{0:d\}}"
+                               Foreground="{Binding Path=., Converter={StaticResource ExpirationStatusToColorConverter}}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsExpired}" Value="True">
+                                        <Setter Property="Background" Value="#FFDDDD"/>
+                                        <!-- Light red for expired -->
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsExpiringSoon}" Value="True">
+                                        <Setter Property="Background" Value="#FFFFE0"/>
+                                        <!-- Light yellow for expiring soon -->
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                    </DataGrid>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
